@@ -1,0 +1,58 @@
+0	1	mikroCARM.exe -MSF -DBG -pLM4F120H5QR -RA -BIN -APB -SSA -O11111114 -fo80 -N"D:\ALL_PROJECTS\INKUBATOR\SHT11_Inkubator.mcpar" -SP"C:\Program Files (x86)\Mikroelektronika\mikroC PRO for ARM\Defs\" -SP"C:\Program Files (x86)\Mikroelektronika\mikroC PRO for ARM\Uses\" -SP"D:\ALL_PROJECTS\INKUBATOR\" -SP"C:\Program Files (x86)\Mikroelektronika\mikroC PRO for ARM\Uses\TI M4\" -IP"D:\ALL_PROJECTS\INKUBATOR\" "SHT11_Inkubator.c" "inkubator_func.c" "sht11_driver.c" "dht22.c" "pid.c" "control_func.c" "error_func.c" "init_func.c" "__Lib_Math.emcl" "__Lib_Delays.emcl" "__Lib_MathDouble.emcl" "__Lib_System.emcl" "__Lib_GPIO_1_Defs.emcl" "__Lib_GPIO_15.emcl" "__Lib_CType.emcl" "__Lib_CString.emcl" "__Lib_CStdlib.emcl" "__Lib_CMath.emcl" "__Lib_Conversions.emcl" "__Lib_Sprintf.emcl" "__Lib_Sprinti.emcl" "__Lib_Sprintl.emcl" "__Lib_Sound.emcl" "__Lib_EEPROM_2K.emcl" "__Lib_LcdConsts.emcl" "__Lib_Lcd.emcl"	 
+diagnostics: 0	122	Compilation Started	LM4F120H5QR.c
+diagnostics: 40055	123	Compiled Successfully	LM4F120H5QR.c
+diagnostics: 0	122	Compilation Started	__Lib_Delays.c
+diagnostics: 118	123	Compiled Successfully	__Lib_Delays.c
+hint: 66	1164	Variable 'cycles_div_by_10' has been eliminated by optimizer	__Lib_Delays.c
+hint: 87	1164	Variable 'NumberOfCyc' has been eliminated by optimizer	__Lib_Delays.c
+hint: 104	1164	Variable 'NumberOfCyc' has been eliminated by optimizer	__Lib_Delays.c
+diagnostics: 0	122	Compilation Started	__gpio.h
+diagnostics: 423	123	Compiled Successfully	__Lib_GPIO_1_Defs.c
+hint: 20	1354	 warning: The macro is redefined     #define DATA_SIZE 10     from D:/ALL_PROJECTS/INKUBATOR/SHT11_Inkubator.c: 1:    #include"inkubator_def.h"     previously macro "DATA_SIZE" defined as: #define DATA_SIZE  BLOCK_SIZE/4 	d:\all_projects\inkubator\inkubator_def.h
+diagnostics: 0	122	Compilation Started	stddef.h
+hint: 0	1004	interrupt handler (Timer0A_interrupt at 0x0023)	SHT11_Inkubator.c
+hint: 0	1004	interrupt handler (Zero_cross_detector_int at 0x0013)	SHT11_Inkubator.c
+hint: 0	1004	interrupt handler (Timer1A_interrupt at 0x0025)	SHT11_Inkubator.c
+diagnostics: 190	123	Compiled Successfully	SHT11_Inkubator.c
+hint: 20	1354	 warning: The macro is redefined     #define DATA_SIZE 10     from D:/ALL_PROJECTS/INKUBATOR/inkubator_func.c: 1:    #include"inkubator_def.h"     previously macro "DATA_SIZE" defined as: #define DATA_SIZE  BLOCK_SIZE/4 	d:\all_projects\inkubator\inkubator_def.h
+diagnostics: 0	122	Compilation Started	stddef.h
+diagnostics: 706	123	Compiled Successfully	inkubator_func.c
+hint: 95	1164	Variable 'key_code' has been eliminated by optimizer	inkubator_func.c
+hint: 140	1164	Variable 'key_code' has been eliminated by optimizer	inkubator_func.c
+hint: 185	1164	Variable 'key_code' has been eliminated by optimizer	inkubator_func.c
+hint: 230	1164	Variable 'key_code' has been eliminated by optimizer	inkubator_func.c
+hint: 274	1164	Variable 'key_code' has been eliminated by optimizer	inkubator_func.c
+hint: 398	1164	Variable 'adress' has been eliminated by optimizer	inkubator_func.c
+diagnostics: 0	122	Compilation Started	sht11_driver.c
+diagnostics: 327	123	Compiled Successfully	sht11_driver.c
+hint: 159	1164	Variable 'checksum' has been eliminated by optimizer	sht11_driver.c
+hint: 210	1164	Variable 't_out' has been eliminated by optimizer	sht11_driver.c
+hint: 250	1164	Variable 'value' has been eliminated by optimizer	sht11_driver.c
+hint: 271	1164	Variable 'checksum' has been eliminated by optimizer	sht11_driver.c
+hint: 20	1354	 warning: The macro is redefined     #define DATA_SIZE 10     from D:/ALL_PROJECTS/INKUBATOR/dht22.c: 1:    #include"inkubator_def.h"     previously macro "DATA_SIZE" defined as: #define DATA_SIZE  BLOCK_SIZE/4 	d:\all_projects\inkubator\inkubator_def.h
+diagnostics: 0	122	Compilation Started	stddef.h
+diagnostics: 86	123	Compiled Successfully	dht22.c
+hint: 23	1164	Variable 'h' has been eliminated by optimizer	dht22.c
+hint: 20	1354	 warning: The macro is redefined     #define DATA_SIZE 10     from D:/ALL_PROJECTS/INKUBATOR/pid.c: 1:    #include "inkubator_def.h"     previously macro "DATA_SIZE" defined as: #define DATA_SIZE  BLOCK_SIZE/4 	d:\all_projects\inkubator\inkubator_def.h
+diagnostics: 0	122	Compilation Started	stddef.h
+diagnostics: 28	123	Compiled Successfully	pid.c
+hint: 4	1164	Variable 'dTerm' has been eliminated by optimizer	pid.c
+hint: 4	1164	Variable 'iTerm' has been eliminated by optimizer	pid.c
+hint: 20	1354	 warning: The macro is redefined     #define DATA_SIZE 10     from D:/ALL_PROJECTS/INKUBATOR/control_func.c: 1:    #include "inkubator_def.h"     previously macro "DATA_SIZE" defined as: #define DATA_SIZE  BLOCK_SIZE/4 	d:\all_projects\inkubator\inkubator_def.h
+diagnostics: 0	122	Compilation Started	stddef.h
+diagnostics: 272	123	Compiled Successfully	control_func.c
+hint: 20	1354	 warning: The macro is redefined     #define DATA_SIZE 10     from D:/ALL_PROJECTS/INKUBATOR/error_func.c: 1:    #include "inkubator_def.h"     previously macro "DATA_SIZE" defined as: #define DATA_SIZE  BLOCK_SIZE/4 	d:\all_projects\inkubator\inkubator_def.h
+diagnostics: 0	122	Compilation Started	stddef.h
+diagnostics: 103	123	Compiled Successfully	error_func.c
+hint: 20	1354	 warning: The macro is redefined     #define DATA_SIZE 10     from D:/ALL_PROJECTS/INKUBATOR/init_func.c: 1:    #include "inkubator_def.h"     previously macro "DATA_SIZE" defined as: #define DATA_SIZE  BLOCK_SIZE/4 	d:\all_projects\inkubator\inkubator_def.h
+diagnostics: 0	122	Compilation Started	stddef.h
+diagnostics: 96	123	Compiled Successfully	init_func.c
+diagnostics: 0	127	All files Compiled in 421 ms	 
+hint: 0	1144	Used RX: 16 (100%)   Free RX: 0 (0%)	Used RX: 16 (100%)   Free RX: 0 (0%)
+hint: 0	1144	Static RAM (bytes): 754   Dynamic RAM (bytes): 32009	Static RAM (bytes): 754   Dynamic RAM (bytes): 32009
+hint: 0	1144	Used ROM (bytes): 21794 (8%)  Free ROM (bytes): 240350 (92%)	Used ROM (bytes): 21794 (8%)  Free ROM (bytes): 240350 (92%)
+diagnostics: 0	125	Project Linked Successfully	SHT11_Inkubator.mcpar
+hint: 91	1004	Possible stack overflow : recursion or cross-calling detected.	inkubator_func.c
+diagnostics: 0	128	Linked in 390 ms	 
+diagnostics: 0	129	Project 'SHT11_Inkubator.mcpar' completed: 1997 ms	 
+diagnostics: 0	103	Finished successfully: 10 окт 2016, 17:40:10	SHT11_Inkubator.mcpar

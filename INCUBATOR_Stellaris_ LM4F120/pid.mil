@@ -1,0 +1,100 @@
+_UpdatePID:
+  begin   (midx: 0)
+//pid.c,2 :: 		float UpdatePID(struct SPid pid, float error, float position)
+_UpdatePID:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	S2 <4> <- S0   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	S3 <4> <- S1   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+//pid.c,6 :: 		pTerm = pid.pGain * error;    // calculate the proportional term
+	S0 <4> <- FARG_UpdatePID_pid+20   (midx: 0)
+	S0 <4> <-  S0 * S2   (midx: 8)
+   (midx: 0)
+	S4 <4> <- S0   (midx: 0)
+//pid.c,7 :: 		pid.iState += error;          // calculate the integral state with appropriate limiting
+	S0 <4> <- FARG_UpdatePID_pid+4   (midx: 0)
+   (midx: 0)
+	S1 <4> <-  S0 + S2   (midx: 8)
+	FARG_UpdatePID_pid+4 <4> <- S1   (midx: 0)
+//pid.c,9 :: 		if (pid.iState > pid.iMax)
+	S0 <4> <- FARG_UpdatePID_pid+8   (midx: 0)
+	if ( S1 <= S0) then goto 0   (midx: 8)
+//pid.c,10 :: 		pid.iState = pid.iMax;
+	S0 <4> <- FARG_UpdatePID_pid+8   (midx: 0)
+	FARG_UpdatePID_pid+4 <4> <- S0   (midx: 0)
+	goto	1   (midx: 0)
+0:   (midx: 0)
+//pid.c,11 :: 		else if (pid.iState < pid.iMin)
+	S1 <4> <- FARG_UpdatePID_pid+12   (midx: 0)
+	S0 <4> <- FARG_UpdatePID_pid+4   (midx: 0)
+	if ( S0 >= S1) then goto 2   (midx: 8)
+//pid.c,12 :: 		pid.iState = pid.iMin;
+	S0 <4> <- FARG_UpdatePID_pid+12   (midx: 0)
+	FARG_UpdatePID_pid+4 <4> <- S0   (midx: 0)
+2:   (midx: 0)
+1:   (midx: 0)
+//pid.c,13 :: 		iTerm = pid.iGain * pid.iState;    // calculate the integral term
+	S1 <4> <- FARG_UpdatePID_pid+4   (midx: 0)
+	S0 <4> <- FARG_UpdatePID_pid+16   (midx: 0)
+	S2 <4> <-  S0 * S1   (midx: 8)
+//pid.c,14 :: 		dTerm = pid.dGain * (position - pid.dState);
+	S0 <4> <- FARG_UpdatePID_pid+0   (midx: 0)
+	S1 <4> <-  S3 - S0   (midx: 8)
+	S0 <4> <- FARG_UpdatePID_pid+24   (midx: 0)
+	S1 <4> <-  S0 * S1   (midx: 8)
+//pid.c,15 :: 		pid.dState = position;
+   (midx: 0)
+	FARG_UpdatePID_pid+0 <4> <- S3   (midx: 0)
+//pid.c,16 :: 		return (pTerm + iTerm - dTerm);
+   (midx: 0)
+	S0 <4> <-  S4 + S2   (midx: 8)
+	S0 <4> <-  S0 - S1   (midx: 8)
+	S0 <4> <- S0   (midx: 0)
+	return   (midx: 0)
+  end
+   (midx: 0)
+_init_pid:
+  begin   (midx: 0)
+//pid.c,19 :: 		void init_pid()
+_init_pid:
+  begin   (midx: 0)
+//pid.c,21 :: 		Rpid.dState=0;
+	R0 <4> <- 0.000000E+000   (midx: 0)
+	S0 <4> <- R0   (midx: 0)
+	R0 <4> <- addr(_Rpid+0)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+//pid.c,22 :: 		Rpid.iState=0;
+	R0 <4> <- 0.000000E+000   (midx: 0)
+	S0 <4> <- R0   (midx: 0)
+	R0 <4> <- addr(_Rpid+4)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+//pid.c,23 :: 		Rpid.iMax=100;
+	R0 <4> <- 1.000000E+002   (midx: 0)
+	S0 <4> <- R0   (midx: 0)
+	R0 <4> <- addr(_Rpid+8)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+//pid.c,24 :: 		Rpid.iMin=0;
+	R0 <4> <- 0.000000E+000   (midx: 0)
+	S0 <4> <- R0   (midx: 0)
+	R0 <4> <- addr(_Rpid+12)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+//pid.c,25 :: 		Rpid.iGain=0.5;
+	S0 <4> <- 5.000000E-001   (midx: 0)
+	R0 <4> <- addr(_Rpid+16)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+//pid.c,26 :: 		Rpid.pGain=10.0;
+	S0 <4> <- 1.000000E+001   (midx: 0)
+	R0 <4> <- addr(_Rpid+20)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+//pid.c,27 :: 		Rpid.dGain=5.0;
+	S0 <4> <- 5.000000E+000   (midx: 0)
+	R0 <4> <- addr(_Rpid+24)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+  end
+   (midx: 0)

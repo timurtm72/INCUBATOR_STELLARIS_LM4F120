@@ -1,0 +1,285 @@
+_Timer0A_interrupt:
+  begin   (midx: 0)
+//SHT11_Inkubator.c,84 :: 		void Timer0A_interrupt() iv IVT_INT_TIMER0A_16_32_bit ics ICS_AUTO {
+_Timer0A_interrupt:
+  begin   (midx: 0)
+//SHT11_Inkubator.c,85 :: 		TIMER_ICR_TATOCINT_bit = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(TIMER_ICR_TATOCINT_bit)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//SHT11_Inkubator.c,86 :: 		flag_t.main_timer_ovf=SET;
+	R0 <4> <- addr(_flag_t+0)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//SHT11_Inkubator.c,87 :: 		read_key();
+	CALL _read_key   (midx: 0)
+//SHT11_Inkubator.c,89 :: 		control_menu();
+	CALL _control_menu   (midx: 0)
+  end
+   (midx: 0)
+_Zero_cross_detector_int:
+  begin   (midx: 0)
+//SHT11_Inkubator.c,92 :: 		void Zero_cross_detector_int() iv IVT_INT_GPIOD ics ICS_AUTO
+_Zero_cross_detector_int:
+  begin   (midx: 0)
+//SHT11_Inkubator.c,94 :: 		unsigned long temp=0;
+   (midx: 0)
+//SHT11_Inkubator.c,95 :: 		GPIO_PORTD_ICR = _GPIO_PINMASK_6;      // clear ext interrupt flag
+	R1 <4> <- 64   (midx: 0)
+	R0 <4> <- addr(GPIO_PORTD_ICR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//SHT11_Inkubator.c,96 :: 		if(flag_t.start_process==SET)
+	R1 <4> <- addr(_flag_t+0)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 0   (midx: 21)
+//SHT11_Inkubator.c,98 :: 		temp=(unsigned long)(100.0*out_reg_value);
+	R0 <4> <- addr(_out_reg_value)   (midx: 0)
+	S1 <4> <- [R0]   (midx: 0)
+	R0 <4> <- 1.000000E+002   (midx: 0)
+	S0 <4> <- R0   (midx: 0)
+	S0 <4> <-  S0 * S1   (midx: 9)
+	S0 <4> <- (type cast)S0   (midx: 0)
+	R1 <4> <- S0   (midx: 0)
+   (midx: 0)
+	R2 <4> <- R1   (midx: 0)
+//SHT11_Inkubator.c,99 :: 		if(temp>PER_TIM_ZCD) temp=PER_TIM_ZCD;
+	R0 <4> <- 50000   (midx: 0)
+   (midx: 0)
+	if ( R1 <= R0) then goto 20   (midx: 2)
+   (midx: 0)
+   (midx: 0)
+	R1 <4> <- 50000   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+	goto	1   (midx: 0)
+20:   (midx: 0)
+	R1 <4> <- R2   (midx: 0)
+1:   (midx: 0)
+//SHT11_Inkubator.c,100 :: 		switch(temp)
+   (midx: 0)
+   (midx: 0)
+	goto	2   (midx: 0)
+//SHT11_Inkubator.c,102 :: 		case 0:                    TRIAC_OUT=RESET; break;
+4:   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(TRIAC_OUT)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+	goto	3   (midx: 0)
+//SHT11_Inkubator.c,103 :: 		case 1:                    TRIAC_OUT=RESET; break;
+5:   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(TRIAC_OUT)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+	goto	3   (midx: 0)
+//SHT11_Inkubator.c,104 :: 		case 2:                    TRIAC_OUT=RESET; break;
+6:   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(TRIAC_OUT)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+	goto	3   (midx: 0)
+//SHT11_Inkubator.c,105 :: 		case PER_TIM_ZCD-2:        TRIAC_OUT=SET;   break;
+7:   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(TRIAC_OUT)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+	goto	3   (midx: 0)
+//SHT11_Inkubator.c,106 :: 		case PER_TIM_ZCD-1:        TRIAC_OUT=SET;   break;
+8:   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(TRIAC_OUT)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+	goto	3   (midx: 0)
+//SHT11_Inkubator.c,107 :: 		case PER_TIM_ZCD:          TRIAC_OUT=SET;   break;
+9:   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(TRIAC_OUT)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+	goto	3   (midx: 0)
+//SHT11_Inkubator.c,108 :: 		default:                   StartTimer1A_10ms(temp);break;//PER_TIM_ZCD-temp); break;
+10:   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R1   (midx: 0)
+	CALL _StartTimer1A_10ms   (midx: 0)
+	goto	3   (midx: 0)
+//SHT11_Inkubator.c,109 :: 		}
+2:   (midx: 0)
+   (midx: 0)
+	if ( R1 = 0) then goto 4   (midx: 2)
+	if ( R1 = 1) then goto 5   (midx: 2)
+	if ( R1 = 2) then goto 6   (midx: 2)
+	R0 <4> <- 49998   (midx: 0)
+	if ( R1 = R0) then goto 7   (midx: 2)
+	R0 <4> <- 49999   (midx: 0)
+	if ( R1 = R0) then goto 8   (midx: 2)
+	R0 <4> <- 50000   (midx: 0)
+	if ( R1 = R0) then goto 9   (midx: 2)
+   (midx: 0)
+	goto	10   (midx: 0)
+3:   (midx: 0)
+//SHT11_Inkubator.c,112 :: 		}
+0:   (midx: 0)
+  end
+   (midx: 0)
+_Timer1A_interrupt:
+  begin   (midx: 0)
+//SHT11_Inkubator.c,116 :: 		void Timer1A_interrupt() iv IVT_INT_TIMER1A_16_32_bit ics ICS_AUTO
+_Timer1A_interrupt:
+  begin   (midx: 0)
+//SHT11_Inkubator.c,118 :: 		TIMER_ICR_TATOCINT_TIMER1_ICR_bit = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(TIMER_ICR_TATOCINT_TIMER1_ICR_bit)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//SHT11_Inkubator.c,119 :: 		StopTimer1A_10ms();
+	CALL _StopTimer1A_10ms   (midx: 0)
+//SHT11_Inkubator.c,120 :: 		impulse();
+	CALL _impulse   (midx: 0)
+  end
+   (midx: 0)
+_main:
+  begin   (midx: 0)
+//SHT11_Inkubator.c,124 :: 		void main()
+_main:
+  begin   (midx: 0)
+//SHT11_Inkubator.c,126 :: 		Init_Gpio();
+	CALL _Init_Gpio   (midx: 0)
+//SHT11_Inkubator.c,127 :: 		Lcd_Init();                        // Initialize LCD
+	CALL _Lcd_Init   (midx: 0)
+//SHT11_Inkubator.c,128 :: 		Lcd_Cmd(_LCD_CLEAR);               // Clear display
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//SHT11_Inkubator.c,129 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);          // Cursor off
+	R0 <1> <- 12   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//SHT11_Inkubator.c,131 :: 		init_pid();
+	CALL _init_pid   (midx: 0)
+//SHT11_Inkubator.c,132 :: 		start_eeprom();
+	CALL _start_eeprom   (midx: 0)
+//SHT11_Inkubator.c,133 :: 		reset_error_message();
+	CALL _reset_error_message   (midx: 0)
+//SHT11_Inkubator.c,134 :: 		BLED=SET;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(BLED)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//SHT11_Inkubator.c,135 :: 		Load();
+	CALL _Load   (midx: 0)
+//SHT11_Inkubator.c,136 :: 		Init_ext_int();
+	CALL _Init_ext_int   (midx: 0)
+//SHT11_Inkubator.c,137 :: 		InitTimer0A();
+	CALL _InitTimer0A   (midx: 0)
+//SHT11_Inkubator.c,138 :: 		EnableInterrupts();
+	CALL _EnableInterrupts   (midx: 0)
+//SHT11_Inkubator.c,140 :: 		while(TRUE)
+11:   (midx: 0)
+//SHT11_Inkubator.c,142 :: 		if(flag_t.main_timer_ovf==SET)
+	R1 <4> <- addr(_flag_t+0)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 13   (midx: 21)
+//SHT11_Inkubator.c,144 :: 		flag_t.main_timer_ovf=RESET;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_flag_t+0)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//SHT11_Inkubator.c,145 :: 		if(flag_t.start_process==SET)
+	R1 <4> <- addr(_flag_t+0)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 14   (midx: 21)
+//SHT11_Inkubator.c,147 :: 		rotation();
+	CALL _rotation   (midx: 0)
+//SHT11_Inkubator.c,149 :: 		out_reg_value=fabs(UpdatePID(Rpid,(parameters_t.set_temperatura-temperature),temperature));
+	R0 <4> <- addr(_temperature)   (midx: 0)
+	S2 <4> <- [R0]   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	S1 <4> <- [R0]   (midx: 0)
+	R0 <4> <- addr(_parameters_t+0)   (midx: 0)
+	FLOC_main+0 <4> <- R0   (midx: 0)
+	S0 <4> <- [R0]   (midx: 0)
+	S0 <4> <-  S0 - S1   (midx: 8)
+	R0 <4> <- addr(_Rpid)   (midx: 0)
+	S1 <4> <- S2   (midx: 0)
+	S0 <4> <- S0   (midx: 0)
+	FARG_UpdatePID_pid <28> <- PUSH([R0])   (midx: 0)
+	CALL _UpdatePID   (midx: 0)
+	S0 <4> <- S0   (midx: 0)
+	CALL _fabs   (midx: 0)
+	R0 <4> <- addr(_out_reg_value)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+//SHT11_Inkubator.c,150 :: 		out_reg_value=(parameters_t.set_temperatura*5)-out_reg_value;
+	R0 <4> <- FLOC_main+0   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	S1 <4> <- [R0]   (midx: 0)
+	S0 <4> <- 5.000000E+000   (midx: 0)
+	S1 <4> <-  S1 * S0   (midx: 9)
+	R0 <4> <- addr(_out_reg_value)   (midx: 0)
+	S0 <4> <- [R0]   (midx: 0)
+	S0 <4> <-  S1 - S0   (midx: 9)
+	R0 <4> <- addr(_out_reg_value)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+//SHT11_Inkubator.c,151 :: 		if(out_reg_value<0) out_reg_value=0;
+	R0 <4> <- addr(_out_reg_value)   (midx: 0)
+	S0 <4> <- [R0]   (midx: 0)
+	if ( S0 >= 0.000000E+000) then goto 15   (midx: 9)
+	R0 <4> <- 0.000000E+000   (midx: 0)
+	S0 <4> <- R0   (midx: 0)
+	R0 <4> <- addr(_out_reg_value)   (midx: 0)
+	[R0] <4> <- S0   (midx: 0)
+15:   (midx: 0)
+//SHT11_Inkubator.c,152 :: 		}
+14:   (midx: 0)
+//SHT11_Inkubator.c,157 :: 		Get_key();
+	CALL _Get_key   (midx: 0)
+//SHT11_Inkubator.c,158 :: 		Read_sensor();
+	CALL _Read_sensor   (midx: 0)
+//SHT11_Inkubator.c,161 :: 		if(flag_t.start_process==SET)
+	R1 <4> <- addr(_flag_t+0)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 16   (midx: 21)
+//SHT11_Inkubator.c,163 :: 		control_first_start();
+	CALL _control_first_start   (midx: 0)
+//SHT11_Inkubator.c,164 :: 		control_temperature();
+	CALL _control_temperature   (midx: 0)
+//SHT11_Inkubator.c,165 :: 		control_temperature_triac();
+	CALL _control_temperature_triac   (midx: 0)
+//SHT11_Inkubator.c,166 :: 		temperature_cover_open_close();
+	CALL _temperature_cover_open_close   (midx: 0)
+//SHT11_Inkubator.c,167 :: 		control_temperature_cover();
+	CALL _control_temperature_cover   (midx: 0)
+//SHT11_Inkubator.c,168 :: 		if(flag_t.control_humidity==SET)
+	R1 <4> <- addr(_flag_t+0)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 17   (midx: 21)
+//SHT11_Inkubator.c,170 :: 		control_humidity();
+	CALL _control_humidity   (midx: 0)
+//SHT11_Inkubator.c,171 :: 		control_cover_humidity();
+	CALL _control_cover_humidity   (midx: 0)
+//SHT11_Inkubator.c,172 :: 		humidity_cover_open_close();
+	CALL _humidity_cover_open_close   (midx: 0)
+//SHT11_Inkubator.c,173 :: 		}
+17:   (midx: 0)
+//SHT11_Inkubator.c,174 :: 		if(flag_t.control_humidity==RESET)
+	R1 <4> <- addr(_flag_t+0)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (R0) then goto 18   (midx: 21)
+//SHT11_Inkubator.c,176 :: 		flag_t.humidity_cover_status=RESET;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_flag_t+0)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//SHT11_Inkubator.c,177 :: 		}
+18:   (midx: 0)
+//SHT11_Inkubator.c,178 :: 		}
+16:   (midx: 0)
+//SHT11_Inkubator.c,179 :: 		if(flag_t.start_process==RESET)
+	R1 <4> <- addr(_flag_t+0)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (R0) then goto 19   (midx: 21)
+//SHT11_Inkubator.c,181 :: 		reset_flags();
+	CALL _reset_flags   (midx: 0)
+//SHT11_Inkubator.c,182 :: 		}
+19:   (midx: 0)
+//SHT11_Inkubator.c,183 :: 		control_outs();
+	CALL _control_outs   (midx: 0)
+//SHT11_Inkubator.c,184 :: 		out_data_to_lcd();
+	CALL _out_data_to_lcd   (midx: 0)
+//SHT11_Inkubator.c,186 :: 		}
+13:   (midx: 0)
+//SHT11_Inkubator.c,187 :: 		}
+	goto	11   (midx: 0)
+  end
+   (midx: 0)
